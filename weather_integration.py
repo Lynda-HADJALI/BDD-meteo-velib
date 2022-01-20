@@ -24,13 +24,19 @@ def api_call(city,units):
     print(json_data.status_code)
     json_data=json_data.json()
     return json_data
-def Mongo_integration():
+def Mongo_init():
     client=pymongo.MongoClient('mongodb://localhost:27017/')
     db=client['weather_db']
     coll=db['weather_collection']
+    return coll
+    
+def Mongo_integration(coll):
     units='metric'
     for city in list_cities():
         json_data=api_call(city,units)
         json_data=data_change(json_data)
         x=coll.insert_one(json_data)
-Mongo_integration()
+coll=Mongo_init()
+while True:   
+    Mongo_integration(coll)
+    time.sleep(90)
