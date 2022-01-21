@@ -6,10 +6,7 @@ def loadCom():
     with open('ville.json') as com:
          listOfCom = json.load(com)
          return listOfCom
-def weather_report(weather_dict):
-    w_report=1
-    
-    return w_report
+
 def create_app(config): 
     app = Flask(__name__)
     app.secret_key = 'something_special'
