@@ -12,9 +12,9 @@
         <form action="" method="post">
             <label>Choisir la ville :</label><br>
             <SELECT name="ville" size="1">
-            <OPTION>Argenteuil
-            <OPTION>Sannois
-            <OPTION>Cergy
+                {% for com in coms %}
+                <li><OPTION>com</li>
+            {% endfor %}
             </SELECT>
             <br>
             <br>

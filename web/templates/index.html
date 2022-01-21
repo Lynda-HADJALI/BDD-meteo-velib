@@ -6,10 +6,17 @@
 </head>
 <body>
     <h1>Welcome to the velib app</h1>
-    entrer la commune de départ:
-    <form action="showSummary" method="post">
-        <label for="com">Commune:</label>
-        <input type="com" name="com" id=""/>
+        <br>
+        <br>
+        <form action="showSummary" method="post">
+            <label>Entrer la commune de départ:</label><br>
+            <SELECT name="com" size="1">
+                {% for com in coms %}
+                <li><OPTION>com</li>
+            {% endfor %}
+            </SELECT>
+            <br>
+            <br>
         <button type="submit">Enter</button>
     </form>
 

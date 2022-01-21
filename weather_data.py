@@ -21,13 +21,6 @@ def create_index(col,index):
      col=db['weather_collection']
      index=col.create_index([('name')])
      return index
-col=get_data()
-pprint.pprint(count_documents(col))
-query={'name':'Paris'}
-
-r=find_with_query(col,query)
-for town in r:
-	pprint.pprint(town)
 
 
     
