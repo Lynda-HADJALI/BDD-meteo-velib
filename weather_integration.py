@@ -46,7 +46,3 @@ def Mongo_integration(collection):
         json_data=data_change(json_data)
         x=collection.insert_one(json_data)
     print('Integration Completed')
-client,db,collection=Mongo_init('weather_db','weather_collection')
-while True:   
-    Mongo_integration(collection)
-    time.sleep(900)
