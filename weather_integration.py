@@ -24,19 +24,29 @@ def api_call(city,units):
     print(json_data.status_code)
     json_data=json_data.json()
     return json_data
-def Mongo_init():
+def Mongo_get_client():
     client=pymongo.MongoClient('mongodb://localhost:27017/')
-    db=client['weather_db']
-    coll=db['weather_collection']
-    return coll
+    return client
+def Mongo_get_db(client,db_name):
+    db=client[db_name]
+    return db
+def Mongo_get_collection(db,collection_name):
+    collection=db[collection_name]
+    return collection
+
+def Mongo_init(db_name,collection_name):
+    client=Mongo_get_client
+    db=Mongo_get_db(client,db_name)
+    collection=Mongo_get_collection(db,collection_name)
+    return client,db,collection
     
-def Mongo_integration(coll):
+def Mongo_integration(collection):
     units='metric'
     for city in list_cities():
         json_data=api_call(city,units)
         json_data=data_change(json_data)
-        x=coll.insert_one(json_data)
-coll=Mongo_init()
+        x=collection.insert_one(json_data)
+client,db,collection=Mongo_init('weather_db','weather_collection')
 while True:   
-    Mongo_integration(coll)
-    time.sleep(90)
+    Mongo_integration(collection)
+    time.sleep(900)
