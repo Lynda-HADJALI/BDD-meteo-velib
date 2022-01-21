@@ -21,7 +21,6 @@ def data_change(json_file):
 def api_call(city,units):
     api='https://api.openweathermap.org/data/2.5/weather?q='+city +'&appid=a71c550b866a5dad0736bc6f5e7508da&units='+units
     json_data = requests.get(api)
-    print(json_data.status_code)
     json_data=json_data.json()
     return json_data
 def Mongo_get_client():
@@ -35,7 +34,7 @@ def Mongo_get_collection(db,collection_name):
     return collection
 
 def Mongo_init(db_name,collection_name):
-    client=Mongo_get_client
+    client=Mongo_get_client()
     db=Mongo_get_db(client,db_name)
     collection=Mongo_get_collection(db,collection_name)
     return client,db,collection
@@ -46,6 +45,7 @@ def Mongo_integration(collection):
         json_data=api_call(city,units)
         json_data=data_change(json_data)
         x=collection.insert_one(json_data)
+    print('Integration Completed')
 client,db,collection=Mongo_init('weather_db','weather_collection')
 while True:   
     Mongo_integration(collection)

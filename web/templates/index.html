@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOS</title>
+</head>
+<body>
+    <h1>Welcome to the velib app</h1>
+    entrer la commune de départ:
+    <form action="showSummary" method="post">
+        <label for="com">Commune:</label>
+        <input type="com" name="com" id=""/>
+        <button type="submit">Enter</button>
+    </form>
+
+    {% if error %}
+    <p class=error><strong>Sorry:</strong> {{ error }}
+        {% endif %}
+</body>
+</html>
