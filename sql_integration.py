@@ -51,9 +51,8 @@ def insert_data(cur,json_data):
 
 
         connection.commit()
-def sql_integration():
+def sql_integration(cur):
     json_data=api_call()
-    cur=connection()
     insert_data(cur,json_data)
     print('Integration Completed')
 
