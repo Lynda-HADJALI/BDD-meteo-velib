@@ -45,4 +45,4 @@ def Mongo_integration(collection):
         json_data=api_call(city,units)
         json_data=data_change(json_data)
         x=collection.insert_one(json_data)
-    print('Integration Completed')
+    print('Integration Mongo Completed')
