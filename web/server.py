@@ -20,8 +20,8 @@ def create_app(config):
     def index():
         return render_template('index.html',coms=coms)
 
-    @app.route('/showSummary',methods=['POST'])
-    def showSummary():
+    @app.route('/showStation',methods=['POST'])
+    def showStation():
          com = [com for com in coms if com == request.form['com']]
          '''conn = sqlite3.connect('data.db')
          cur = conn.cursor()
@@ -29,10 +29,8 @@ def create_app(config):
             result = cur.execute(req)'''
          weather_collection=weather_data.get_data()
          if com:
-             
-             
              com = [com for com in coms if com == request.form['com']][0]
-             req = "select * from velib2 where "
+             req = "select * from velib2 where commune=com "
              ##result = cur.execute(req)
              weather_query=query={'name':com}  
              weather=weather_data.find_with_query(weather_collection,weather_query)
@@ -43,10 +41,6 @@ def create_app(config):
              
              error='Desole, cette communes ne contient pas de velib'
              return render_template('index.html', error=error)
-
-
-
-
 
     @app.route('/logout')
     def logout():
