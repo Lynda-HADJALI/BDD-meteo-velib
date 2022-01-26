@@ -2,6 +2,7 @@ import requests
 import time
 import json
 import pymongo
+import datetime
 def list_cities():
     api ="https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-disponibilite-en-temps-reel&rows=1435&q=&sort=nom_arrondissement_communes&facet=name&facet=is_installed&facet=is_renting&facet=is_returning&facet=nom_arrondissement_communes"
     json_data = requests.get(api).json()
@@ -13,9 +14,13 @@ def list_cities():
     communes.sort()
     return communes
 def data_change(json_file):
+    DATEFORMAT = "%Y-%m-%d_%H-%M-%S"
+    now = datetime.datetime.now()
+    request_date = now.strftime(DATEFORMAT)
     json_file['sys']['sunrise']= time.strftime('%I:%M:%S', time.gmtime(json_file['sys']['sunrise']+json_file['timezone']))
     json_file['sys']['sunset']= time.strftime('%I:%M:%S', time.gmtime(json_file['sys']['sunset']+json_file['timezone']))
     json_file['dt']= time.strftime('%I:%M:%S', time.gmtime(json_file['dt']+json_file['timezone']))
+    json_file['request_date']=request_date
     json_file.pop('timezone')
     return json_file
 def api_call(city,units):

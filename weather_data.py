@@ -9,6 +9,8 @@ def get_data():
     return col
 def find(col):
     return col.find()
+def sort_recent(col):
+    return col.find.sort("request_date",pymongo.DESCENDING)
 def find_with_query(col,query):
     return col.find(query)
 def count_documents(col):
