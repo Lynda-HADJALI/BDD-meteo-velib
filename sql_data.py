@@ -14,7 +14,7 @@ def sql_connection():
      cur=conn.cursor()
      return cur
 def find_all(cur):
-     req="select * from velib2"
+     req="SELECT * FROM velib2"
      result=cur.execute(req)
      return result
 def find_elem(cur,elem_name):
@@ -22,11 +22,11 @@ def find_elem(cur,elem_name):
      result=cur.execute(req)
      return result
 def find_all_with_query(cur,query):
-     req="select * from velib2 where"+query
+     req="""select * from velib2 where"""+query
      result=cur.execute(req)
      return result
 def find_elem_with_query(cur,query,elem_name):
-     req="select "+elem_name+"from velib2 where "+query
+     req="""select """+elem_name+"""from velib2 where """+query
      result=cur.execute(req)
      return result
 cur=sql_connection()
