@@ -8,6 +8,6 @@ db_name='weather_db'
 collection_name='weather_collection'
 collection=weather_restart(db_name,collection_name)
 while True:
-        weather_integration.Mongo_integration(collection)
-        print('Time Stop')
-        time.sleep(900)
+    weather_integration.Mongo_integration(collection)
+    print('Time Stop')
+    time.sleep(900)

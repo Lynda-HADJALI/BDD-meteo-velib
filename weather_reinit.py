@@ -10,10 +10,10 @@ def weather_reinit(db_name,collection_name):
 db_name='weather_db'
 collection_name='weather_collection'
 collection=weather_reinit(db_name,collection_name)
-while True:
-        weather_integration.Mongo_integration(collection)
-        print('Time Stop')
-        time.sleep(900)
+while True:    
+    weather_integration.Mongo_integration(collection)
+    print('Time Stop')
+    time.sleep(900)
 
 
 
