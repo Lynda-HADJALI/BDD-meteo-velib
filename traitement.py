@@ -1,6 +1,7 @@
 import weather_data
 import sql_data
 import pprint
+import pymongo
 col=weather_data.get_data()
 cur=sql_data.sql_connection()
 def aggregation(col,pipeline):
@@ -20,4 +21,9 @@ dico={'number':25,'boolean':'OUI'}
 res=sql_data.find_elem_with_query(cur,query,elem_name,dico)
 for r in res:
     print(r)
-
+query={'name':'Alfortville'}
+sorted_elem="request_date"
+param=pymongo.DESCENDING
+r=weather_data.sort_recent(col,query,sorted_elem,param)
+for rr in r:
+    print(weather_data)

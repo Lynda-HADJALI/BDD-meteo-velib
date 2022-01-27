@@ -5,8 +5,19 @@
     <title>Summary | GUDLFT Registration</title>
 </head>
 <body>
-        <h2>Welcome to w_info% </h2><a href="{{url_for('logout')}}">Logout</a>
-
+        <h2style="text-align:center">
+Welcome to {{w_info['name']}} </h2>
+<p> <ul>
+<li> Weather :{{w_info['weather'][0]['main']}} </li>
+<li> Temperature :{{w_info['main']['temp']}}</li>
+<li> Temperature min:{{w_info['main']['temp_min']}}</li>
+<li> Temperature max:{{w_info['main']['temp_max']}}</li>
+<li> Sunset :{{w_info['sys']['sunset']}}</li>
+<li> Sunrise :{{w_info['sys']['sunrise']}}</li>
+<li> Wind speed :{{w_info['wind']['speed']}}</li>
+</ul>
+</p>
+<a href="{{url_for('logout')}}">Logout</a>
     {% with messages = w_info%}
     {% if messages %}
         <ul>
