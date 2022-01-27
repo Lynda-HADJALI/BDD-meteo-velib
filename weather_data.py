@@ -3,7 +3,6 @@ import json
 from flask import request
 import pymongo
 import pprint
-import matplotlib.pyplot as plt
 def get_data():    
     client=pymongo.MongoClient('mongodb://localhost:27017/')
     db=client['weather_db']
@@ -30,11 +29,11 @@ def plot_temp(col,town):
         temp.append(w['main']['temp'])
         request_date.append(w['request_date'])
     return temp,request_date  
-def plot(array1,array2,xlabel,ylabel):
+'''def plot(array1,array2,xlabel,ylabel):
     plt.plot(array1,array2)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    plt.savefig('graphe.png')
+    plt.savefig('graphe.png')'''
       
 
     
