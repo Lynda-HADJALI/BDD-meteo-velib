@@ -31,8 +31,3 @@ def find_elem_with_query(cur,query,elem_name):
      return result
 def find_station_town(cur,town):  
      return cur.execute('SELECT station2 FROM velib2 WHERE commune=:city',{'city':town})
-cur=sql_connection()
-result=find_all(cur)
-
-for row in result:
-     print(row[4])
