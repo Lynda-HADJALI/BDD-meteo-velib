@@ -7,4 +7,5 @@ def sql_first():
 connection,cur=sql_first()
 while True:
     sql_integration.sql_integration(connection,cur)
+    print('Time Stop')
     time.sleep(900)

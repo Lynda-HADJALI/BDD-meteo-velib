@@ -9,4 +9,5 @@ def sql_reinit():
 connection,cur=sql_reinit()
 while True:
     sql_integration.sql_integration(connection,cur)
+    print('Time Stop')
     time.sleep(900)
