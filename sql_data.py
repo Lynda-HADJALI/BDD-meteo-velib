@@ -25,9 +25,11 @@ def find_all_with_query(cur,query):
      req="""select * from velib2 where"""+query
      result=cur.execute(req)
      return result
-def find_elem_with_query(cur,query,elem_name):
-     req="""select """+elem_name+"""from velib2 where """+query
-     result=cur.execute(req)
+def find_elem_with_query(cur,query,elem_name,dico):
+     req="""select distinct """+elem_name+""" from velib2 where """+query
+     result=cur.execute(req,dico)
      return result
 def find_station_town(cur,town):  
      return cur.execute('SELECT station2 FROM velib2 WHERE commune=:city',{'city':town})
+def query_with_where(cur,dict,elem_name,query):
+     return 0
