@@ -10,8 +10,10 @@ def get_data():
     return col
 def find(col):
     return col.find()
-def sort_recent(col):
-    return col.find.sort("request_date",pymongo.DESCENDING)
+def sort_recent(col,query,elem_sorted,order):
+    return col.find(query).sort(elem_sorted,order)
+def get_recent_weather(col,query):
+    return col.find(query).sort
 def find_with_query(col,query):
     return col.find(query)
 def count_documents(col):
