@@ -13,7 +13,7 @@ def list_cities():
         communes.append(communes_list[i]['name'])
     communes.sort()
     return communes
-def data_change(json_file):
+def preprocess_data(json_file):
     DATEFORMAT = "%Y-%m-%d_%H-%M-%S"
     now = datetime.datetime.now()
     request_date = now.strftime(DATEFORMAT)
@@ -48,6 +48,6 @@ def mongo_integration(collection):
     units='metric'
     for city in list_cities():
         json_data=api_call(city,units)
-        json_data=data_change(json_data)
+        json_data=preprocess_data(json_data)
         x=collection.insert_one(json_data)
     print('Integration Mongo Completed')
