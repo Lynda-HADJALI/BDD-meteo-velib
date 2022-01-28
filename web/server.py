@@ -3,6 +3,7 @@ import sqlite3
 from flask import Flask, render_template, request, session, url_for, redirect
 import weather_data
 import sql_data
+import pymongo
 def loadCom():
     with open('ville.json') as com:
          listOfCom = json.load(com)
@@ -32,12 +33,20 @@ def create_app(config):
              query='commune>:com_name and station_en_fonctionnement=:boolean'
              dico={'com_name':com,'boolean':'OUI'}
              query_response=sql_data.find_elem_with_query(cur,query,elem_name,dico)
-             ##result = cur.execute(req)
-             weather_query=query={'name':com}  
-             weather=weather_data.find_with_query(weather_collection,weather_query)
-             for weather_info in weather:
-                w_info=weather_info
-             return render_template('welcome.html',w_info=w_info,is_returning=query_response)
+             list_station=[]
+             for q in query_response:
+                 list_station.append(q)
+             is_returning=list_station[0]    
+             query={'name':com}
+             sorted_elem="request_date"
+             param=pymongo.DESCENDING
+             r=weather_data.get_recent(weather_collection,query,sorted_elem,param)
+             list_weather=[]
+             for w in r:
+                list_weather.append(w)
+             w_info=list_weather[0]
+        
+             return render_template('welcome.html',w_info=w_info,is_returning=is_returning)
          else :
              
              error='Desole, cette communes ne contient pas de velib'

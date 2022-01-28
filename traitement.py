@@ -15,15 +15,27 @@ for ag in agg:
 	print(ag)
 ##station velos avec capacite superieur à 25 et qui est deployé
 print('Les stations velib  deployés qui ont une capacité superieur à 25')
-elem_name='station2,'
+elem_name='station2'
 query='capacity>:number and station_en_fonctionnement=:boolean'
 dico={'number':25,'boolean':'OUI'}
 res=sql_data.find_elem_with_query(cur,query,elem_name,dico)
+print(type(res))
 for r in res:
     print(r)
 query={'name':'Alfortville'}
 sorted_elem="request_date"
 param=pymongo.DESCENDING
-r=weather_data.sort_recent(col,query,sorted_elem,param)
+r=weather_data.get_recent(col,query,sorted_elem,param)
+list_weather=[]
 for rr in r:
-    print(weather_data)
+	list_weather.append(rr)
+print(list_weather[0])
+elem_name='station2,ebike,mechanical'
+order_name='request_date'
+query='commune=:town'
+dico={'town':'Alfortville'}
+res=sql_data.select_with_order(cur,elem_name,order_name,query,dico)
+list_station=[]
+for ll in res:
+	list_station.append(ll)
+print(list_station)

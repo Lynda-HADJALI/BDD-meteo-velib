@@ -31,5 +31,5 @@ def find_elem_with_query(cur,query,elem_name,dico):
      return result
 def find_station_town(cur,town):  
      return cur.execute('SELECT station2 FROM velib2 WHERE commune=:city',{'city':town})
-def query_with_where(cur,dict,elem_name,query):
-     return 0
+def select_with_order(cur,elem_name,elem_ordre,query,dico):
+	return cur.execute('SELECT '+elem_name +' from velib2 WHERE '+query+ ' ORDER BY '+elem_ordre+' DESC',dico)
