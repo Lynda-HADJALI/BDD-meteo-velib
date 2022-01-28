@@ -18,7 +18,7 @@ def connection():
     return connection,cursor
 
 def create_table(cur):
-    create_table = "CREATE TABLE IF NOT EXISTS velib2 ( identifiant text, request_date numeric, commune text, station2 text, station_en_fonctionnement text, ebike INTEGER, ebikeavail INTEGER, capacity INTEGER, mechanical INTEGER)"
+    create_table = "CREATE TABLE IF NOT EXISTS velib ( identifiant text, request_date numeric, commune text, station text, station_en_fonctionnement text, ebike INTEGER, ebikeavail INTEGER, capacity INTEGER, mechanical INTEGER)"
 
     cur.execute(create_table)    
 def insert_data(connection,cur,json_data):
@@ -26,29 +26,29 @@ def insert_data(connection,cur,json_data):
     now = datetime.datetime.now()
     request_date = now.strftime(DATEFORMAT)
 
-    for station in json_data["records"]:
+    for station_ in json_data["records"]:
 
-        identifiant =station["fields"]["stationcode"]
+        identifiant =station_["fields"]["stationcode"]
 
-        commune=station["fields"]["nom_arrondissement_communes"]
+        commune=station_["fields"]["nom_arrondissement_communes"]
 
-        station2=station["fields"]["name"]
+        station=station_["fields"]["name"]
 
-        station_en_fonctionnement=station["fields"]["is_installed"]
+        station_en_fonctionnement=station_["fields"]["is_installed"]
 
-        ebike=int(station["fields"]["ebike"])
+        ebike=int(station_["fields"]["ebike"])
 
-        ebikeavail=int(station["fields"]["numbikesavailable"])
+        ebikeavail=int(station_["fields"]["numbikesavailable"])
 
-        capacity=int(station["fields"]["capacity"])
+        capacity=int(station_["fields"]["capacity"])
 
-        mechanical = int(station["fields"]["mechanical"])
+        mechanical = int(station_["fields"]["mechanical"])
 
         cur.execute("""
 
-        INSERT INTO velib2(identifiant, request_date,commune,station2,station_en_fonctionnement,ebike,ebikeavail,capacity,mechanical)
+        INSERT INTO velib(identifiant, request_date,commune,station,station_en_fonctionnement,ebike,ebikeavail,capacity,mechanical)
 
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)""", (identifiant, request_date,commune,station2,station_en_fonctionnement,ebike,ebikeavail,capacity,mechanical))
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)""", (identifiant, request_date,commune,station,station_en_fonctionnement,ebike,ebikeavail,capacity,mechanical))
         connection.commit()
 def sql_integration(connection,cur):
     json_data=api_call()

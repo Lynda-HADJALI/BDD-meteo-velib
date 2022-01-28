@@ -28,23 +28,23 @@ def api_call(city,units):
     json_data = requests.get(api)
     json_data=json_data.json()
     return json_data
-def Mongo_get_client():
+def mongo_get_client():
     client=pymongo.MongoClient('mongodb://localhost:27017/')
     return client
-def Mongo_get_db(client,db_name):
+def mongo_get_db(client,db_name):
     db=client[db_name]
     return db
-def Mongo_get_collection(db,collection_name):
+def mongo_get_collection(db,collection_name):
     collection=db[collection_name]
     return collection
 
-def Mongo_init(db_name,collection_name):
-    client=Mongo_get_client()
-    db=Mongo_get_db(client,db_name)
-    collection=Mongo_get_collection(db,collection_name)
+def mongo_init(db_name,collection_name):
+    client=mongo_get_client()
+    db=mongo_get_db(client,db_name)
+    collection=mongo_get_collection(db,collection_name)
     return client,db,collection
     
-def Mongo_integration(collection):
+def mongo_integration(collection):
     units='metric'
     for city in list_cities():
         json_data=api_call(city,units)
