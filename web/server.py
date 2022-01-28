@@ -34,7 +34,7 @@ def create_app(config):
              order_by_column='request_date'
              query='commune=:town and station_en_fonctionnement=:boolean'
              query_arguments={'town':com,'boolean':'OUI'}
-             res=velib_data.select_with_order(cur,column_name,order_by_column,query,query_arguments)
+             res=velib_data.query_with_order(cur,column_name,order_by_column,query,query_arguments)
              list_station=[]
              for q in res:
                  list_station.append(q)
@@ -42,7 +42,7 @@ def create_app(config):
              query={'name':com}
              sort_by_field="request_date"
              sort_order=pymongo.DESCENDING
-             r=weather_data.get_recent(weather_collection,query,sort_by_field,sort_order)
+             r=weather_data.sort_weather_data(weather_collection,query,sort_by_field,sort_order)
              list_weather=[]
              for w in r:
                 list_weather.append(w)
