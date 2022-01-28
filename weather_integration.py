@@ -13,21 +13,21 @@ def list_cities():
         communes.append(communes_list[i]['name'])
     communes.sort()
     return communes
-def preprocess_data(json_file):
+def preprocess_data(json_weather_data):
     DATEFORMAT = "%Y-%m-%d_%H-%M-%S"
     now = datetime.datetime.now()
     request_date = now.strftime(DATEFORMAT)
-    json_file['sys']['sunrise']= time.strftime('%I:%M:%S', time.gmtime(json_file['sys']['sunrise']+json_file['timezone']))
-    json_file['sys']['sunset']= time.strftime('%I:%M:%S', time.gmtime(json_file['sys']['sunset']+json_file['timezone']))
-    json_file['dt']= time.strftime('%I:%M:%S', time.gmtime(json_file['dt']+json_file['timezone']))
-    json_file['request_date']=request_date
-    json_file.pop('timezone')
-    return json_file
+    json_weather_data['sys']['sunrise']= time.strftime('%I:%M:%S', time.gmtime(json_weather_data['sys']['sunrise']+json_weather_data['timezone']))
+    json_weather_data['sys']['sunset']= time.strftime('%I:%M:%S', time.gmtime(json_weather_data['sys']['sunset']+json_weather_data['timezone']))
+    json_weather_data['dt']= time.strftime('%I:%M:%S', time.gmtime(json_weather_data['dt']+json_weather_data['timezone']))
+    json_weather_data['request_date']=request_date
+    json_weather_data.pop('timezone')
+    return json_weather_data
 def api_call(city,units):
     api='https://api.openweathermap.org/data/2.5/weather?q='+city +'&appid=a71c550b866a5dad0736bc6f5e7508da&units='+units
-    json_data = requests.get(api)
-    json_data=json_data.json()
-    return json_data
+    weather_data = requests.get(api)
+    weather_data_to_json=weather_data.json()
+    return weather_data_to_json
 def mongo_get_client():
     client=pymongo.MongoClient('mongodb://localhost:27017/')
     return client
@@ -47,7 +47,7 @@ def mongo_init(db_name,collection_name):
 def mongo_integration(collection):
     units='metric'
     for city in list_cities():
-        json_data=api_call(city,units)
-        json_data=preprocess_data(json_data)
-        x=collection.insert_one(json_data)
+        request_weather_data=api_call(city,units)
+        json_weather_data=preprocess_data(request_weather_data)
+        x=collection.insert_one(json_weather_data)
     print('Integration Mongo Completed')

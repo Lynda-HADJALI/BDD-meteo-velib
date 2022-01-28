@@ -3,7 +3,7 @@ import json
 from flask import request
 import pymongo
 import pprint
-def get_data():    
+def connect_to_mongo():    
     client=pymongo.MongoClient('mongodb://localhost:27017/')
     db=client['weather_db']
     col=db['weather_collection']    

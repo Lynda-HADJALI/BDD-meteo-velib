@@ -25,12 +25,12 @@ def create_app(config):
     @app.route('/showStation',methods=['POST'])
     def showStation():
          com = [com for com in coms if com == request.form['com']]
-         weather_collection=weather_data.get_data()
+         weather_collection=weather_data.connect_to_mongo()
          if com:
              com = [com for com in coms if com == request.form['com']][0]
              connection = sqlite3.connect('../data.db')
              cur = connection.cursor()
-             column_name='station2,ebike,mechanical'
+             column_name='station,ebike,mechanical'
              order_by_column='request_date'
              query='commune=:town and station_en_fonctionnement=:boolean'
              query_arguments={'town':com,'boolean':'OUI'}

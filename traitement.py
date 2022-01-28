@@ -2,7 +2,7 @@ import weather_data
 import velib_data
 import pprint
 import pymongo
-col=weather_data.get_data()
+col=weather_data.connect_to_mongo()
 cur=velib_data.sql_connection()
 def aggregation(col,pipeline):
     return col.aggregate(pipeline)
