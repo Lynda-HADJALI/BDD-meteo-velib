@@ -17,16 +17,15 @@ Welcome to {{w_info['name']}} </h2>
 <li> Wind speed :{{w_info['wind']['speed']}}</li>
 </ul>
 </p>
+<h3>Les stations en deploiement de cette ville sont: </h3>
+<p><ul>{% for station in is_returning %}
+<li>{{station[0]}} <ul>
+    <li> number of ebikes available: {{station[1]}}</li>    
+   <li>number of mechanical bikes available: {{station[2]}}.</li>
+</ul>
+</li>
+{% endfor %}
+</ul></p>
 <a href="{{url_for('logout')}}">Logout</a>
-    {% with messages = w_info%}
-    {% if messages %}
-        <ul>
-       {% for message in messages %}
-            <li>{{message}}</li>
-        {% endfor %}
-       </ul>
-       {%endif%}
-    {%endwith%}
-
 </body>
 </html>

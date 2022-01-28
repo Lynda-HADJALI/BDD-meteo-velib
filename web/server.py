@@ -29,12 +29,13 @@ def create_app(config):
          if com:
              com = [com for com in coms if com == request.form['com']][0]
              cur=sql_data.sql_connection()
-             elem_name='station2,ebike,mechanical,'
-             query='commune>:com_name and station_en_fonctionnement=:boolean'
-             dico={'com_name':com,'boolean':'OUI'}
-             query_response=sql_data.find_elem_with_query(cur,query,elem_name,dico)
+             elem_name='station2,ebike,mechanical'
+             order_name='request_date'
+             query='commune=:town and station_en_fonctionnement=:boolean'
+             dico={'town':com,'boolean':'OUI'}
+             res=sql_data.select_with_order(cur,elem_name,order_name,query,dico)
              list_station=[]
-             for q in query_response:
+             for q in res:
                  list_station.append(q)
              is_returning=list_station[0]    
              query={'name':com}
