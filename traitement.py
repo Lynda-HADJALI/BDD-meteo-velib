@@ -1,9 +1,9 @@
 import weather_data
-import sql_data
+import velib_data
 import pprint
 import pymongo
 col=weather_data.get_data()
-cur=sql_data.sql_connection()
+cur=velib_data.sql_connection()
 def aggregation(col,pipeline):
     return col.aggregate(pipeline)
 ##temperature moyenne pour les villes au climat brouillard
@@ -18,7 +18,7 @@ print('Les stations velib  deployés qui ont une capacité superieur à 25')
 column_name='station'
 query='capacity>:number and station_en_fonctionnement=:boolean'
 query_arguments={'number':25,'boolean':'OUI'}
-query_result=sql_data.find_elem_with_query(cur,query,column_name,query_arguments)
+query_result=velib_data.find_elem_with_query(cur,query,column_name,query_arguments)
 for r in query_result:
     print(r)
 query={'name':'Alfortville'}
@@ -33,7 +33,7 @@ column_name='station,ebike,mechanical'
 order_by_column='request_date'
 query='commune=:town'
 query_arguments={'town':'Alfortville'}
-query_result=sql_data.select_with_order(cur,column_name,order_by_column,query,query_arguments)
+query_result=velib_data.select_with_order(cur,column_name,order_by_column,query,query_arguments)
 list_station=[]
 for r in query_result:
 	list_station.append(r)

@@ -2,7 +2,7 @@ import json
 import sqlite3
 from flask import Flask, render_template, request, session, url_for, redirect
 import weather_data
-import sql_data
+import velib_data
 import pymongo
 def load_com():
     with open('ville.json') as com:
@@ -34,7 +34,7 @@ def create_app(config):
              order_by_column='request_date'
              query='commune=:town and station_en_fonctionnement=:boolean'
              query_arguments={'town':com,'boolean':'OUI'}
-             res=sql_data.select_with_order(cur,column_name,order_by_column,query,query_arguments)
+             res=velib_data.select_with_order(cur,column_name,order_by_column,query,query_arguments)
              list_station=[]
              for q in res:
                  list_station.append(q)

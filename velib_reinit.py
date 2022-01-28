@@ -1,13 +1,13 @@
 import time
-import sql_integration
+import velib_integration
 def sql_reinit():
-    connection,cur=sql_integration.connection()
+    connection,cur=velib_integration.connection()
     drop="DROP TABLE velib2"
     cur.execute(drop)
-    sql_integration.create_table(cur)
+    velib_integration.create_table(cur)
     return connection,cur
 connection,cur=sql_reinit()
 while True:
-    sql_integration.sql_integration(connection,cur)
+    velib_integration.sql_integration(connection,cur)
     print('Time Stop')
     time.sleep(900)
